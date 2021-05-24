@@ -9,19 +9,85 @@
                 outlined
                 tile
                 >
+                    <v-row
+                    >
+                        <v-col
+                        cols="6"
+                        >
+                            <v-img
+                            height="500"
+                            :src="getActual($route.params.id).thumbnailUrl"
+                            >
 
+                            </v-img>
+                        </v-col>
+                        <v-col
+                        cols="6"
+                        align-self="center"
+                        >
+                            <v-card-title
+                            class="display-1 font-weight-bold"
+                            >{{getActual($route.params.id).title}}</v-card-title>
+                            <v-divider class="mx-2"></v-divider>
+                            <v-card-text
+                            class="text-justify"
+                            >
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit reiciendis amet quidem et, provident accusamus, maxime mollitia nobis repudiandae vel, ullam accusantium porro laboriosam omnis molestias laudantium veritatis. Architecto, dolore.
+                            </v-card-text>
+                            <v-rating
+                            :value="4.5"
+                            color="amber"
+                            dense
+                            half-increments
+                            readonly
+                            size="14"
+                            ></v-rating>
+                            <div class="grey--text ms-4">
+                            4.5 (413)
+                            </div>
+                            <v-divider class="mx-2"></v-divider>
+                            <v-card-subtitle
+                            class="headline font-weight-bold"
+                            >${{getActual($route.params.id).precio}}</v-card-subtitle>
+                            <v-btn
+                            block
+                            color="success"
+                            >
+                                Comprar Ahora
+                            </v-btn>
+                            <v-btn
+                            block
+                            color="light-green lighten-3"
+                            @click="agregarCarrito(getActual($route.params.id))"
+                            >
+                                Agregar al carrito
+                            </v-btn>
+                        </v-col>
+                    </v-row>
                 </v-card>
             </v-col>
         </v-row>
     </v-container>
 </template>
 <script>
+import { mapState, Store } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 export default {
     name:"product",
     data() {
         return {
-            
+            productoactual: null
         }
+    },
+    computed:{
+        ...mapGetters(['getActual']),
+        
+    },
+    methods: {
+        ...mapActions(['agregarCarrito'])
+    },
+    created() {
     },
 }
 </script>

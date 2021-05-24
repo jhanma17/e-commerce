@@ -14,7 +14,7 @@
         >
             <v-col
                 cols="12"
-                v-for="(producto, i) in comprainfo" :key="i"
+                v-for="producto in comprainfo" :key="producto.id"
             >
                 <v-card
                 class="pa-2"
@@ -30,13 +30,13 @@
                         >
                             <v-img
                             height="70"
-                            :src="producto.img"
+                            :src="producto.thumbnailUrl"
                             ></v-img>   
                         </v-col>
                         <v-col
                         cols="3"
                         >
-                            <v-card-title>{{producto.nombre}}</v-card-title>  
+                            <v-card-title>{{producto.title}}</v-card-title>  
                         </v-col>
                         <v-col
                         cols="3"
@@ -126,6 +126,7 @@
 import { mapState } from 'vuex';
 import { mapMutations } from 'vuex';
 import { mapActions } from 'vuex';
+
 export default {
     name: "Cart",
     data() {
@@ -135,18 +136,20 @@ export default {
         }
     },
     methods: {
+        ...mapMutations(['setProductos']),
         sacartotal(){
             this.total=0
             this.comprainfo.forEach(element => {
                 this.total=this.total+(element.precio*element.cantidad)
             });
-        }
+        },
     },
     created() {
+        this.setProductos()
         this.sacartotal()
     },
     computed:{
-        ...mapState(['comprainfo'])
+        ...mapState(['comprainfo']),
     }
 }
 </script>

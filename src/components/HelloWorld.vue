@@ -4,7 +4,7 @@
       <v-col
         cols="12"
         sm="4"
-        v-for="(producto, i) in proinfo" :key="i"
+        v-for="producto in comprainfo" :key="producto.id"
       >
         <v-card
           class="mx-auto my-12"
@@ -12,12 +12,12 @@
         >
           <v-img
             height="250"
-            :src="producto.img"
+            :src="producto.thumbnailUrl"
           ></v-img>
 
           <v-card-title
           class="headline"
-          >{{producto.nombre}}</v-card-title>
+          >{{producto.title}}</v-card-title>
 
           <v-card-text
           color="dark"
@@ -36,6 +36,14 @@
           <v-card-title
           class="body-1"
           >--Descripcion corta--</v-card-title>
+          <v-btn
+          text
+          block
+          color="indigo darken-1"
+          :to="{name: 'Product', params: {id: producto.id}}"
+          >
+            Ver Producto
+          </v-btn>
         </v-card>
       </v-col>
     </v-row>
@@ -44,15 +52,21 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
+import { mapMutations } from 'vuex';
   export default {
     name: 'HelloWorld',
 
     data: () => ({
       
     }),
+    methods: {
+      ...mapMutations(['setProductos']),
+    },
+    created() {
+    },
     computed:{
-      ...mapState(['proinfo'])
+      ...mapState(['comprainfo']),
     }
   }
 </script>

@@ -23,19 +23,39 @@ export default new Vuex.Store({
       {nombre:"Jesu", img:"https://cdn.vuetifyjs.com/images/cards/sunshine.jpg", precio:"20000"}
     ],
     comprainfo:[
-      {nombre:"Cafe", img:"https://cdn.vuetifyjs.com/images/cards/cooking.png", precio:"2300", cantidad:"1"},
-      {nombre:"Jhan", img:"https://cdn.vuetifyjs.com/images/cards/sunshine.jpg", precio:"30000", cantidad:"1"},
-      {nombre:"Karem", img:"https://cdn.vuetifyjs.com/images/cards/cooking.png", precio:"500000", cantidad:"1"},
-      {nombre:"Carlos", img:"https://cdn.vuetifyjs.com/images/cards/sunshine.jpg", precio:"20000", cantidad:"1"}
+      {
+        precio: 500,
+        id: 1,
+        title: "Café",
+        thumbnailUrl: "https://picsum.photos/id/0/600"
+      },
+      {
+        precio: 300,
+        id: 2,
+        title: "Pizza",
+        thumbnailUrl: "https://picsum.photos/id/10/600"
+      },
+      {
+        precio: 100,
+        id: 3,
+        title: "Agua",
+        thumbnailUrl: "https://picsum.photos/id/20/600"
+      },
+      {
+        precio: 50,
+        id: 4,
+        title: "Sandía",
+        thumbnailUrl: "https://picsum.photos/id/30/600"
+      }
     ],
     user:null,
     pass:null,
-    productos: [],
     carrito: {}
   },
   mutations: {
-    setProductos(state, payload) {
-      state.productos = payload
+    setProductos(payload) {
+      this.state.comprainfo = payload
+      console.log(this.state.comprainfo)
     },
     setCarrito(state, payload) {
       state.carrito[payload.id] = { ...payload }
@@ -52,18 +72,9 @@ export default new Vuex.Store({
       if (state.carrito[payload].cantidad === 0) {
         delete state.carrito[payload]
       }
-    }
+    },
   },
   actions: {
-    async fetchData({commit}) {
-      try {
-        const res = await fetch('api.json')
-        const productos = await res.json()
-        commit('setProductos', productos)
-      } catch (error) {
-        console.log(error)
-      }
-    },
     agregarCarrito({ commit, state }, producto) {
       state.carrito.hasOwnProperty(producto.id)
         ? producto.cantidad = state.carrito[producto.id].cantidad + 1
@@ -79,6 +90,9 @@ export default new Vuex.Store({
     },
     totalPrecio(state) {
       return Object.values(state.carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio, 0)
+    },
+    getActual:(state) => (id) => {
+      return state.comprainfo[id-1]
     }
   }
 })
