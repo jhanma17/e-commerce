@@ -58,7 +58,6 @@ import { mapMutations } from 'vuex';
     name: 'HelloWorld',
 
     data: () => ({
-      
     }),
     methods: {
       ...mapMutations(['setProductos']),

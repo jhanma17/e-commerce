@@ -8,13 +8,54 @@
                 <h1>Tu carrito:</h1>
             </v-col>
         </v-row>
-            
         <v-row
         align="center"
         >
             <v-col
                 cols="12"
-                v-for="producto in comprainfo" :key="producto.id"
+            >
+                <v-card
+                class="pa-2"
+                outlined
+                color="grey lighten-3"
+                tile
+                >
+                    <v-row
+                    align="center"
+                    >
+                        <v-col
+                        cols="1"
+                        >
+                        </v-col>
+                        <v-col
+                        cols="3"
+                        >
+                            <v-card-title>Nombre</v-card-title>  
+                        </v-col>
+                        <v-col
+                        cols="3"
+                        >
+                        </v-col>
+                        <v-col
+                        cols="3"
+                        >
+                            <v-card-title>Cantidad</v-card-title>
+                        </v-col>
+                        <v-col
+                        cols="2"
+                        >
+                            <v-card-title>Precio</v-card-title>
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </v-col>
+        </v-row>
+        <v-row
+        align="center"
+        >
+            <v-col
+                cols="12"
+                v-for="(producto, i) in carrito" :key="i"
             >
                 <v-card
                 class="pa-2"
@@ -65,7 +106,7 @@
                             <v-card-text
                             class="title"
                             >
-                            ${{producto.cantidad*producto.precio}}
+                            ${{producto.precio*producto.cantidad}}
                             </v-card-text>
                         </v-col>
                     </v-row>
@@ -98,7 +139,7 @@
                             <v-card-text
                             class="title"
                             >
-                            {{total}}
+                            {{totalPrecio()}}
                             </v-card-text>
                         </v-col>
                         <v-col
@@ -125,7 +166,7 @@
 <script>
 import { mapState } from 'vuex';
 import { mapMutations } from 'vuex';
-import { mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
     name: "Cart",
@@ -136,20 +177,19 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(['setProductos']),
+        ...mapMutations(['aumentar', 'disminuir']),
         sacartotal(){
             this.total=0
-            this.comprainfo.forEach(element => {
+            this.carrito.forEach(element => {
                 this.total=this.total+(element.precio*element.cantidad)
             });
         },
     },
     created() {
-        this.setProductos()
-        this.sacartotal()
     },
     computed:{
-        ...mapState(['comprainfo']),
+        ...mapGetters(['totalPrecio']),
+        ...mapState(['carrito']),
     }
 }
 </script>

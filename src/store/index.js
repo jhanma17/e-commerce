@@ -77,7 +77,7 @@ export default new Vuex.Store({
   actions: {
     agregarCarrito({ commit, state }, producto) {
       state.carrito.hasOwnProperty(producto.id)
-        ? producto.cantidad = state.carrito[producto.id].cantidad + 1
+        ? producto.cantidad = state.carrito[producto.id-1].cantidad + 1
         : producto.cantidad = 1
       commit('setCarrito', producto)
     }
@@ -88,7 +88,7 @@ export default new Vuex.Store({
     totalCantidad(state) {
       return Object.values(state.carrito).reduce((acc, {cantidad}) => acc + cantidad, 0)
     },
-    totalPrecio(state) {
+    totalPrecio: (state) => () =>{
       return Object.values(state.carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio, 0)
     },
     getActual:(state) => (id) => {
