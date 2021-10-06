@@ -2,12 +2,11 @@
   <v-app>
     <v-app-bar
       app
-      dark
+      white
     >
-      <v-container class="mx-auto py-0">
+      <v-container class="mx-auto py-0 ">
         <v-row align="center">
-          <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-          <v-toolbar-title>B2C</v-toolbar-title>
+          <v-toolbar-title>JABHOLDING</v-toolbar-title>
           <v-btn
             text
             class="ml-10"
@@ -17,16 +16,7 @@
             <v-icon>mdi-home</v-icon>
             Inicio
           </v-btn>
-          <v-btn
-            text
-            class="ml-5"
-            :to="{name: 'Login'}"
-            exact
-            :v-if="user==null"
-          >
-            <v-icon>mdi-account-circle-outline</v-icon>
-            Inicie sesion
-          </v-btn>
+          
           <v-btn
             text
             class="ml-5"
@@ -34,16 +24,7 @@
             exact
           >
             <v-icon>mdi-cart</v-icon>
-            Carrito
-          </v-btn>
-          <v-btn
-            text
-            class="ml-5"
-            :to="{name: 'About'}"
-            exact
-          >
-            <v-icon>mdi-information-outline</v-icon>
-            About
+            Mi Lista
           </v-btn>
           <v-spacer />
 
@@ -54,6 +35,16 @@
             solo-inverted
             style="max-width: 300px;"
           />
+          <v-btn
+            text
+            class="ml-5"
+            :to="{name: 'Login'}"
+            exact
+            :v-if="user==null"
+          >
+            <v-icon>mdi-account-circle-outline</v-icon>
+            
+          </v-btn>
         </v-row>
       </v-container>
     </v-app-bar>
@@ -104,7 +95,7 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-main>
+    <v-main class="yellow accent-3">
       <router-view/>
     </v-main>
   </v-app>
