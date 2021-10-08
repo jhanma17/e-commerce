@@ -8,7 +8,8 @@
               <v-text-field 
               label="Correo Electronico" 
               prepend-icon="mdi-account-circle"
-              v-model="userin"
+              v-model="aut.userin"
+              :rules="[logear()]"
               />
               <v-text-field 
               label="Contraseña" 
@@ -16,7 +17,8 @@
               prepend-icon="mdi-lock"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="showPassword = !showPassword"
-              v-model="passin"
+              v-model="aut.passin"
+              
               />
               
             </v-card-text>
@@ -25,7 +27,7 @@
             <v-card-actions class="justify-center">
               <v-btn 
               color="grey darken-4 white--text"
-              @click="guardar(userin, passin)"
+              @click="[logear()]"
               >
                 Login
               </v-btn>
@@ -47,13 +49,16 @@
 </template>
 <script>
 import { mapMutations, mapState } from 'vuex'
+import {required, minLength, email} from 'vuelidate/lib/validators'
 export default {
     name: "Login",
     data() {
       return {
           showPassword:false,
-          userin:"",
-          passin:""
+          aut:{
+            userin: '',
+            passin: ''
+          },
       }
 
     },
@@ -61,7 +66,20 @@ export default {
       ...mapState(['user','pass']),
     },
     methods: {
-      ...mapMutations(['guardar'])
+      ...mapMutations(['guardar']),
+      logear(){
+        if(this.$v.$invalid){
+          return 'invalid'
+        }
+      }
     },
+    validations:{
+      aut:{
+        userin:{
+          required,
+          email
+        }
+      }
+    }
 }
 </script>
