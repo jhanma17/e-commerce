@@ -7,7 +7,8 @@ import Vuelidate from 'vuelidate'
 import '@babel/polyfill'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
-
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 Vue.config.productionTip = false
 Vue.use(Vuelidate)
 new Vue({

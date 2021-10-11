@@ -3,7 +3,7 @@
       <v-container>
         <v-row>
           <v-card width="400" class="mx-auto mt-9 ">
-            <v-card-title class="justify-center yellow accent-3">¡HOLA USUARIO!</v-card-title>
+            <v-card-title class="justify-center yellow accent-3">¡REGISTRATE!</v-card-title>
             <v-card-text class="justify-center">
               <v-text-field 
               label="Correo Electronico" 
@@ -20,7 +20,15 @@
               v-model="passin"
               :rules="[claveval()]"
               />
-              
+              <v-text-field 
+              label="Confirmar Contraseña" 
+              :type="showPassword ? 'text' : 'password'"
+              prepend-icon="mdi-lock"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="showPassword = !showPassword"
+              v-model="passconf"
+              :rules="[confval()]"
+              />
             </v-card-text>
 
             <v-divider></v-divider>
@@ -36,18 +44,18 @@
               color="grey darken-4 white--text"
               v-else
               >
-                Login
+                Registrate
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-row>
         <v-row class="justify-center pt-6">
-          <p class="text-h6">No tienes cuenta? Registrate</p>
+          <p class="text-h6">Ya tienes cuenta? Ingresa</p>
           <v-btn
           class="text-h6 white--text mt-1"
           x-small
           plain
-          :to="{name: 'Register'}"
+          :to="{name: 'Login'}"
           >
             aquí
           </v-btn>
@@ -59,22 +67,18 @@
 import { mapMutations, mapState } from 'vuex'
 import {required, minLength, email} from 'vuelidate/lib/validators'
 export default {
-    name: "Login",
+    name:"Register",
     data() {
       return {
           showPassword:false,
           userin: '',
-          passin: ''
+          passin: '', 
+          passconf: '',
       }
-
-    },
-    computed:{
-      ...mapState(['user','pass']),
     },
     methods: {
-      ...mapMutations(['guardar']),
       logear(){
-        if(this.$v.$invalid){
+        if(this.$v.$invalid||!this.passin==this.passconf){
           return 'invalid'
         }
       },
@@ -91,6 +95,15 @@ export default {
         if(!this.$v.passin.required){
           return 'Este campo es obligatorio'
         }
+      },
+      confval(){
+        if(!this.$v.passconf.required){
+          return 'Este campo es obligatorio'
+        }else{
+            if(!this.passin==this.passconf){
+                return 'Las contraseñas no coinciden'
+            }
+        }
       }
     },
     validations:{
@@ -99,6 +112,9 @@ export default {
         email
       },
       passin:{
+        required
+      },
+      passconf:{
         required
       }
     }
