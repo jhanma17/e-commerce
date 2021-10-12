@@ -13,7 +13,7 @@
             :to="{name: 'Home'}"
             exact
           >
-            <v-icon>mdi-home</v-icon>
+     
             Inicio
           </v-btn>
           
@@ -23,7 +23,7 @@
             :to="{name: 'Cart'}"
             exact
           >
-            <v-icon>mdi-cart</v-icon>
+        
             Mi Lista
           </v-btn>
           <v-spacer />
