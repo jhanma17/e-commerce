@@ -34,7 +34,15 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
-  },
+  },{
+    path: '/moduloadmin',
+    name: 'Moduloadmin',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Moduloadmin.vue')
+  },{
+    path: '/modulosuperadmin',
+    name: 'Modulosuperadmin',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Modulosuperadmin.vue')
+  }
 ]
 
 const router = new VueRouter({

@@ -1,12 +1,13 @@
 <template>
   <v-container>
+<v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-parallax>
     <v-row>
       <v-col
         cols="12"
         sm="4"
         v-for="producto in comprainfo" :key="producto.id"
       >
-        <v-card
+        <v-card color="#dbdbdb"
           class="mx-auto my-12"
           max-width="374"
         >
@@ -36,14 +37,21 @@
           <v-card-title
           class="body-1"
           >--Descripcion corta--</v-card-title>
-          <v-btn
-          text
-          block
-          color="indigo darken-1"
-          :to="{name: 'Product', params: {id: producto.id}}"
-          >
-            Ver Producto
-          </v-btn>
+
+              <v-btn
+      
+      class="mx-2"
+      fab
+      dark
+      small
+      color="gray"
+      :to="{name: 'Product', params: {id: producto.id}}"
+    >
+      <v-icon dark>
+        mdi-heart
+      </v-icon>
+    </v-btn>
+ 
         </v-card>
       </v-col>
     </v-row>
