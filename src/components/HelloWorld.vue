@@ -1,5 +1,6 @@
 <template>
   <v-container>
+<v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-parallax>
     <v-row>
       <v-col
         cols="12"

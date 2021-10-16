@@ -39,12 +39,12 @@
                         <v-col
                         cols="3"
                         >
-                            <v-card-title>Precio</v-card-title>
+                            <v-card-title>Cantidad</v-card-title>
                         </v-col>
                         <v-col
                         cols="2"
                         >
-                            <v-card-title>Cantidad</v-card-title>
+                            <v-card-title>Precio</v-card-title>
                         </v-col>
                     </v-row>
                 </v-card>

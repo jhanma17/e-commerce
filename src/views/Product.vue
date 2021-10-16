@@ -49,25 +49,45 @@
                             <v-card-subtitle
                             class="headline font-weight-bold"
                             >${{getActual($route.params.id).precio}}</v-card-subtitle>
-                            <v-btn
-                            block
-                            color="success"
-                            >
-                                Comprar Ahora
-                            </v-btn>
+
                             <v-btn
                             block
                             color="light-green lighten-3"
                             @click="agregarCarrito(getActual($route.params.id))"
                             >
-                                Agregar al carrito
+                                Agregar a la lista
                             </v-btn>
                         </v-col>
                     </v-row>
                 </v-card>
             </v-col>
         </v-row>
+          <div class="text-center">
+    <v-rating
+      v-model="rating"
+      icon-label="custom icon label text {0} of {1}"
+    ></v-rating>
+  </div>
+            <v-col
+        cols="12"
+        sm="12"
+      >
+        <v-textarea
+          class="mx-2"
+          label="Realiza un comentario"
+          rows="1"
+          prepend-icon="mdi-comment"
+        ></v-textarea>
+                                    <v-btn
+                            block
+                            color="light-green lighten-3"
+                            
+                            >
+                                Guardar
+                            </v-btn>
+      </v-col>
     </v-container>
+    
 </template>
 <script>
 import { mapState, Store } from 'vuex';

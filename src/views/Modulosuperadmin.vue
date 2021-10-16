@@ -50,6 +50,7 @@
         items: [
           { title: 'Productos', icon: 'mdi-cart-check' },
           { title: 'Usuarios', icon: 'mdi-account-group-outline' },
+          { title: 'Administradores', icon: 'mdi-account-star' },
           { title: 'Cerrar sesión', icon: 'mdi-close-circle' },
         ],
         mini: true,
@@ -57,3 +58,4 @@
     },
   }
 </script>
+

@@ -95,7 +95,7 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-main class="yellow accent-3">
+    <v-main class="white">
       <router-view/>
     </v-main>
   </v-app>
