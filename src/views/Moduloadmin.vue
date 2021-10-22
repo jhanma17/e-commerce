@@ -48,7 +48,7 @@
       return {
         drawer: true,
         items: [
-          { title: 'Productos', icon: 'mdi-cart-check' },
+          { title: 'Cargar productos', icon: 'mdi-cart-check' },
           { title: 'Usuarios', icon: 'mdi-account-group-outline' },
           { title: 'Cerrar sesión', icon: 'mdi-close-circle' },
         ],
