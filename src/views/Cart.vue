@@ -88,7 +88,7 @@
                         >
                             <v-btn
                             elevation="1"
-                            @click="producto.cantidad--, sacartotal()"
+                            @click="disminuir(), sacartotal()"
                             dense
                             >-</v-btn>
                             <v-btn
@@ -96,7 +96,7 @@
                             disabled
                             >{{producto.cantidad}}</v-btn>
                             <v-btn
-                             @click="producto.cantidad++, sacartotal()"
+                             @click="aumentar(), sacartotal()"
                             elevation="1"
                             >+</v-btn>
                         </v-col>
