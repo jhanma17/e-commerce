@@ -7,25 +7,54 @@
       <v-container class="mx-auto py-0 ">
         <v-row align="center">
           <v-toolbar-title>JABHOLDING</v-toolbar-title>
-          <v-btn
-            text
-            class="ml-10"
-            :to="{name: 'Home'}"
-            exact
+          <div
+            v-if="admin==false"
           >
-     
-            Inicio
-          </v-btn>
+            <v-btn
+              text
+              class="ml-10"
+              :to="{name: 'Home'}"
+              exact
+            >
+      
+              Inicio
+            </v-btn>
+            
+            <v-btn
+              text
+              class="ml-5"
+              :to="{name: 'Cart'}"
+              exact
+            >
           
-          <v-btn
-            text
-            class="ml-5"
-            :to="{name: 'Cart'}"
-            exact
+              Mi Lista
+            </v-btn>
+            
+          </div>
+          <div
+            v-else
           >
-        
-            Mi Lista
-          </v-btn>
+            <v-btn
+              text
+              class="ml-10"
+              :to="{name: 'Home'}"
+              exact
+            >
+      
+              Agregar
+            </v-btn>
+            
+            <v-btn
+              text
+              class="ml-5"
+              :to="{name: 'Cart'}"
+              exact
+            >
+          
+              Eliminar
+            </v-btn>
+            
+          </div>
           <v-spacer />
 
           <v-text-field
@@ -96,7 +125,9 @@
       </v-list>
     </v-navigation-drawer>
     <v-main class="white">
-      <router-view/>
+      <div>
+        <router-view/>
+      </div>
     </v-main>
   </v-app>
 </template>
@@ -110,7 +141,7 @@ export default {
     drawer: false,
   }),
   computed:{
-    ...mapState(['categorias', 'user', 'pass'])
+    ...mapState(['categorias', 'user', 'pass', 'admin'])
   },
 };
 </script>

@@ -88,15 +88,16 @@
                         >
                             <v-btn
                             elevation="1"
-                            @click="disminuir(), sacartotal()"
+                            @click="disminuir(producto.id), sacartotal()"
                             dense
                             >-</v-btn>
                             <v-btn
                             text
                             disabled
+                            
                             >{{producto.cantidad}}</v-btn>
                             <v-btn
-                             @click="aumentar(), sacartotal()"
+                             @click="aumentar(producto.id), sacartotal()"
                             elevation="1"
                             >+</v-btn>
                         </v-col>
@@ -106,7 +107,6 @@
                             <v-card-text
                             class="title"
                             >
-                            ${{producto.precio*producto.cantidad}}
                             </v-card-text>
                         </v-col>
                     </v-row>
@@ -165,7 +165,7 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -177,18 +177,15 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(['aumentar', 'disminuir']),
+        ...mapActions(['aumentar', 'disminuir']),
         sacartotal(){
             this.total=0
-            this.carrito.forEach(element => {
-                this.total=this.total+(element.precio*element.cantidad)
-            });
         },
     },
     created() {
     },
     computed:{
-        ...mapGetters(['totalPrecio']),
+        ...mapGetters(['totalCantidad', 'totalPrecio']),
         ...mapState(['carrito']),
     }
 }
