@@ -55,7 +55,7 @@
         >
             <v-col
                 cols="12"
-                v-for="(producto, i) in carrito" :key="i"
+                v-for="(producto, i) in carrolocal" :key="i"
             >
                 <v-card
                 class="pa-2"
@@ -71,13 +71,13 @@
                         >
                             <v-img
                             height="70"
-                            :src="producto.thumbnailUrl"
+                            :src="producto[4]"
                             ></v-img>   
                         </v-col>
                         <v-col
                         cols="3"
                         >
-                            <v-card-title>{{producto.title}}</v-card-title>  
+                            <v-card-title>{{producto[1]}}</v-card-title>  
                         </v-col>
                         <v-col
                         cols="3"
@@ -88,7 +88,7 @@
                         >
                             <v-btn
                             elevation="1"
-                            @click="disminuir(producto.id), sacartotal()"
+                            @click="disminuir(producto[1]), sacartotal()"
                             dense
                             >-</v-btn>
                             <v-btn
@@ -97,7 +97,7 @@
                             
                             >{{producto.cantidad}}</v-btn>
                             <v-btn
-                             @click="aumentar(producto.id), sacartotal()"
+                             @click="aumentar(producto[1]), sacartotal()"
                             elevation="1"
                             >+</v-btn>
                         </v-col>
@@ -172,8 +172,8 @@ export default {
     name: "Cart",
     data() {
         return {
-            
-            total:0
+            total:0,
+            carrolocal: null,
         }
     },
     methods: {
@@ -187,6 +187,9 @@ export default {
     computed:{
         ...mapGetters(['totalCantidad', 'totalPrecio']),
         ...mapState(['carrito']),
-    }
+    },
+    updated() {
+        this.carrolocal=this.carrito
+    },
 }
 </script>

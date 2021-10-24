@@ -58,7 +58,6 @@ def register():
         return jsonify(response_object)
 
 @app.route('/catalogo',methods=['GET'])
-@login_required
 def get_catalogo():
     print("cata")
     cata=Catalogo().get_catalogo()
@@ -97,4 +96,4 @@ def get_por_id(ID):
     return jsonify(resultado)
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run(debug=True) 

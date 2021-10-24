@@ -8,7 +8,7 @@
         <v-row align="center">
           <v-toolbar-title>JABHOLDING</v-toolbar-title>
           <div
-            v-if="admin==false"
+            v-if="getAdmin()==false"
           >
             <v-btn
               text
@@ -37,21 +37,21 @@
             <v-btn
               text
               class="ml-10"
-              :to="{name: 'Home'}"
+              :to="{name: 'Verproductos'}"
               exact
             >
       
-              Agregar
+              Productos
             </v-btn>
             
             <v-btn
               text
               class="ml-5"
-              :to="{name: 'Cart'}"
+              :to="{name: 'Verusuarios'}"
               exact
             >
           
-              Eliminar
+              Usuarios
             </v-btn>
             
           </div>
@@ -69,10 +69,19 @@
             class="ml-5"
             :to="{name: 'Login'}"
             exact
-            :v-if="user==null"
+            v-if="user==null"
           >
             <v-icon>mdi-account-circle-outline</v-icon>
-            
+          </v-btn>
+          <v-btn
+            text
+            class="ml-5"
+            :to="{name: 'Infocuenta'}"
+            exact
+            v-else
+          >
+            <v-icon>mdi-account-circle</v-icon>
+            ¡HOLA!
           </v-btn>
         </v-row>
       </v-container>
@@ -133,15 +142,21 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState, mapGetters } from "vuex"
 export default {
   name: 'App',
 
   data: () => ({
     drawer: false,
+    administrador: null,
   }),
   computed:{
-    ...mapState(['categorias', 'user', 'pass', 'admin'])
+    ...mapState(['categorias', 'user', 'pass', 'admin']),
+    ...mapGetters(['getAdmin'])
+  },
+  updated() {
+    console.log(this.admin)
+    this.administrador=this.admin
   },
 };
 </script>

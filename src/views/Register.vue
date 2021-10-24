@@ -55,7 +55,7 @@
           >
             <v-card>
               <v-card-title class="text-h5">
-                {{$mensaje}}
+                {{mensaje}}
               </v-card-title>
 
               <v-card-actions>
@@ -141,7 +141,7 @@ export default {
           contrasena: this.passin
         }).then((respuesta)=>{
           console.log(respuesta.data.message)
-          this.mensaje=respuesta.data.mensaje
+          this.mensaje=respuesta.data.message
           this.dialog=true
         }).catch((error)=>{
           console.log(error)

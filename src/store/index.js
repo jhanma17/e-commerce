@@ -57,7 +57,7 @@ export default new Vuex.Store({
     ],
     user:null,
     pass:null,
-    admin:false,
+    admin:'0',
     carrito: {}
   },
   mutations: {
@@ -82,6 +82,19 @@ export default new Vuex.Store({
         delete state.carrito[payload]
       }
       console.log(state.carrito)
+    },
+    setadmin(state, ad){
+      console.log(ad)
+      state.admin=ad
+      console.log(this.admin)
+    },
+    setuser(state, ad){
+      state.user=ad
+      console.log(this.user)
+    },
+    setpass(state, ad){
+      state.pass=ad
+      console.log(this.pass)
     },
   },
   actions: {
@@ -110,6 +123,9 @@ export default new Vuex.Store({
     },
     getActual:(state) => (id) => {
       return state.comprainfo[id-1]
+    },
+    getAdmin:(state) => () => {
+      return state.admin
     }
   }
 })

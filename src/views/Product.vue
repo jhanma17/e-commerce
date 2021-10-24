@@ -16,7 +16,7 @@
                         >
                             <v-img
                             height="500"
-                            :src="getActual($route.params.id).thumbnailUrl"
+                            :src="productoactual[4]"
                             >
 
                             </v-img>
@@ -27,7 +27,7 @@
                         >
                             <v-card-title
                             class="display-1 font-weight-bold"
-                            >{{getActual($route.params.id).title}}</v-card-title>
+                            >{{productoactual[1]}}</v-card-title>
                             <v-divider class="mx-2"></v-divider>
                             <v-card-text
                             class="text-justify"
@@ -48,12 +48,12 @@
                             <v-divider class="mx-2"></v-divider>
                             <v-card-subtitle
                             class="headline font-weight-bold"
-                            >${{getActual($route.params.id).precio}}</v-card-subtitle>
+                            >${{productoactual[2]}}</v-card-subtitle>
 
                             <v-btn
                             block
                             color="light-green lighten-3"
-                            @click="agregarCarrito(getActual($route.params.id))"
+                            @click="agregarCarrito(productoactual[4])"
                             >
                                 Agregar a la lista
                             </v-btn>
@@ -78,13 +78,13 @@
           rows="1"
           prepend-icon="mdi-comment"
         ></v-textarea>
-                                    <v-btn
-                            block
-                            color="light-green lighten-3"
-                            
-                            >
-                                Guardar
-                            </v-btn>
+            <v-btn
+            block
+            color="light-green lighten-3"
+            
+            >
+                Guardar
+            </v-btn>
       </v-col>
     </v-container>
     
@@ -93,6 +93,7 @@
 import { mapState, Store } from 'vuex';
 import { mapMutations, mapGetters } from 'vuex';
 import { mapActions } from 'vuex';
+import axios from 'axios';
 export default {
     name:"product",
     data() {
@@ -105,9 +106,23 @@ export default {
         
     },
     methods: {
-        ...mapActions(['agregarCarrito'])
+        ...mapActions(['agregarCarrito']),
+        traerproducto(id){
+        const path='http://localhost:5000/catalogo1/'
+        axios.get(path,{
+            ID: id
+        })
+        .then((respuesta)=>{
+          console.log(respuesta.data)
+          this.productoactual=respuesta.data
+        }).catch((error)=>{
+          console.log(error)
+        }).then(()=>{
+        })
+      }
     },
     created() {
+        this.traerproducto(this.$route.params.id)
     },
 }
 </script>

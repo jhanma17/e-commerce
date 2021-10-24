@@ -5,7 +5,7 @@
       <v-col
         cols="12"
         sm="4"
-        v-for="producto in catalogo" :key="producto.ID"
+        v-for="producto in catalogo" :key="producto[0]"
       >
         <v-card color="#dbdbdb"
           class="justify-center"
@@ -13,12 +13,12 @@
         >
           <v-img
             height="250"
-            :src="producto.imagen"
+            :src="producto[4]"
           ></v-img>
 
           <v-card-title
           class="headline"
-          >{{producto.nombre}}</v-card-title>
+          >{{producto[1]}}</v-card-title>
 
           <v-card-text
           color="dark"
@@ -28,7 +28,7 @@
               align="center"
               class="mx-0"
             >
-              ${{producto.precio}}
+              ${{producto[2]}}
             </v-row>
           </v-card-text>
 
@@ -46,7 +46,7 @@
                 dark
                 small
                 color="gray"
-                :to="{name: 'Product', params: {id: producto.ID}}"
+                :to="{name: 'Product', params: {id: producto[0]}}"
               >
                 <v-icon dark >
                   mdi-heart
@@ -76,22 +76,19 @@ import axios from 'axios'
     methods: {
       ...mapMutations(['setProductos']),
       traerproductos(){
-        var cat
         const path='http://localhost:5000/catalogo'
         axios.get(path)
         .then((respuesta)=>{
           console.log(respuesta.data)
-          cat=respuesta.data
+          this.catalogo=respuesta.data
         }).catch((error)=>{
           console.log(error)
         }).then(()=>{
         })
-        return cat
       }
     },
     created() {
-      this.catalogo=this.traerproductos()
-
+      this.traerproductos()
     },
     computed:{
       ...mapState(['comprainfo']),

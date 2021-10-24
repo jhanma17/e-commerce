@@ -48,6 +48,27 @@
               Usuario o Contraseña incorrecto
             </v-card-text>
           </v-card>
+          <v-dialog
+            v-model="dialog"
+            max-width="290"
+          >
+            <v-card>
+              <v-card-title class="text-h5">
+                {{mensaje}}
+              </v-card-title>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="green darken-1"
+                  text
+                  @click="cerrardialogo()"
+                >
+                  Continuar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-row>
         <v-row class="justify-center pt-6">
           <p class="text-h6">No tienes cuenta? Registrate</p>
@@ -76,6 +97,8 @@ export default {
           passin: '',
           tipo:null,
           error:null,
+          dialog:false,
+          mensaje: ''
       }
 
     },
@@ -83,6 +106,7 @@ export default {
       ...mapState(['user','pass','admin']),
     },
     methods: {
+      ...mapMutations(['setadmin', 'setuser', 'setpass']),
       logear(){
         if(this.$v.$invalid){
           return 'invalid'
@@ -112,20 +136,19 @@ export default {
           console.log(respuesta.data.message)
           this.tipo=respuesta.data.message
           console.log(this.tipo)
-        }).catch((error)=>{
-          console.log(error)
-        }).then(()=>{
           if (this.tipo=='sí') {
-            this.admin=true
-            this.user=this.userin
-            this.pass=this.passin
+            this.setadmin(true)
+            this.setuser(this.userin)
+            this.setpass(this.passin)
+            this.mensaje='Ingreso Exitoso'
             this.$router.push({path: '/moduloadmin'})
             
           }else{
             if(this.tipo=='no'){
-              this.admin=false
-              this.user=this.userin
-              this.pass=this.passin
+              this.setadmin(false)
+              this.setuser(this.userin)
+              this.setpass(this.passin)
+              this.mensaje='Ingreso Exitoso'
               this.$router.push({path: '/'})
             }else{
               this.error=true
@@ -133,8 +156,15 @@ export default {
               this.passin=''
             }
           }
+        }).catch((error)=>{
+          console.log(error)
+        }).then(()=>{
+          
         })
         
+      },
+      cerrardialogo(){
+        this.dialog=false
       }
     },
     validations:{
