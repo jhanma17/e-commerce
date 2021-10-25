@@ -55,7 +55,7 @@
         >
             <v-col
                 cols="12"
-                v-for="(producto, i) in carrito" :key="i"
+                v-for="(producto, i) in carrolocal" :key="i"
             >
                 <v-card
                 class="pa-2"
@@ -71,13 +71,13 @@
                         >
                             <v-img
                             height="70"
-                            :src="producto.thumbnailUrl"
+                            :src="producto[4]"
                             ></v-img>   
                         </v-col>
                         <v-col
                         cols="3"
                         >
-                            <v-card-title>{{producto.title}}</v-card-title>  
+                            <v-card-title>{{producto[1]}}</v-card-title>  
                         </v-col>
                         <v-col
                         cols="3"
@@ -88,15 +88,16 @@
                         >
                             <v-btn
                             elevation="1"
-                            @click="disminuir(), sacartotal()"
+                            @click="disminuir(producto[1]), sacartotal()"
                             dense
                             >-</v-btn>
                             <v-btn
                             text
                             disabled
+                            
                             >{{producto.cantidad}}</v-btn>
                             <v-btn
-                             @click="aumentar(), sacartotal()"
+                             @click="aumentar(producto[1]), sacartotal()"
                             elevation="1"
                             >+</v-btn>
                         </v-col>
@@ -106,7 +107,6 @@
                             <v-card-text
                             class="title"
                             >
-                            ${{producto.precio*producto.cantidad}}
                             </v-card-text>
                         </v-col>
                     </v-row>
@@ -165,31 +165,31 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import { mapGetters } from 'vuex';
 
 export default {
     name: "Cart",
     data() {
         return {
-            
-            total:0
+            total:0,
+            carrolocal: null,
         }
     },
     methods: {
-        ...mapMutations(['aumentar', 'disminuir']),
+        ...mapActions(['aumentar', 'disminuir']),
         sacartotal(){
             this.total=0
-            this.carrito.forEach(element => {
-                this.total=this.total+(element.precio*element.cantidad)
-            });
         },
     },
     created() {
     },
     computed:{
-        ...mapGetters(['totalPrecio']),
+        ...mapGetters(['totalCantidad', 'totalPrecio']),
         ...mapState(['carrito']),
-    }
+    },
+    updated() {
+        this.carrolocal=this.carrito
+    },
 }
 </script>

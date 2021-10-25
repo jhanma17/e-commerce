@@ -8,13 +8,6 @@ export default new Vuex.Store({
     drawer: false,
     items: [
     ],
-    categorias: [
-      "ropa",
-      "calzado",
-      "muebles",
-      "accesorios",
-      "computacion"
-    ],
     proinfo:[
       {nombre:"Cafe", img:"https://cdn.vuetifyjs.com/images/cards/cooking.png", precio:"5000"},
       {nombre:"Jhan", img:"https://cdn.vuetifyjs.com/images/cards/sunshine.jpg", precio:"30000"},
@@ -64,6 +57,7 @@ export default new Vuex.Store({
     ],
     user:null,
     pass:null,
+    admin:'0',
     carrito: {}
   },
   mutations: {
@@ -78,14 +72,29 @@ export default new Vuex.Store({
     setVaciar(state) {
       state.carrito = {}
     },
-    aumentar(state, payload) {
+    aumentar2(state, payload) {
       state.carrito[payload].cantidad = state.carrito[payload].cantidad + 1
+      console.log(state.carrito)
     },
-    disminuir(state, payload) {
+    disminuir2(state, payload) {
       state.carrito[payload].cantidad = state.carrito[payload].cantidad - 1
       if (state.carrito[payload].cantidad === 0) {
         delete state.carrito[payload]
       }
+      console.log(state.carrito)
+    },
+    setadmin(state, ad){
+      console.log(ad)
+      state.admin=ad
+      console.log(this.admin)
+    },
+    setuser(state, ad){
+      state.user=ad
+      console.log(this.user)
+    },
+    setpass(state, ad){
+      state.pass=ad
+      console.log(this.pass)
     },
   },
   actions: {
@@ -94,19 +103,29 @@ export default new Vuex.Store({
         ? producto.cantidad = state.carrito[producto.id-1].cantidad + 1
         : producto.cantidad = 1
       commit('setCarrito', producto)
+    }, 
+    aumentar({commit}, payload){
+      commit('aumentar2', payload)
+    },
+    disminuir({commit}, payload){
+      commit('disminuir2', payload)
     }
   },
   modules: {
   },
   getters: {
-    totalCantidad(state) {
-      return Object.values(state.carrito).reduce((acc, {cantidad}) => acc + cantidad, 0)
+    totalCantidad:(state) => (id) => {
+      console.log("estoy corriendo")
+      return state.carrito[id].cantidad
     },
     totalPrecio: (state) => () =>{
       return Object.values(state.carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio, 0)
     },
     getActual:(state) => (id) => {
       return state.comprainfo[id-1]
+    },
+    getAdmin:(state) => () => {
+      return state.admin
     }
   }
 })

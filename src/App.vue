@@ -7,25 +7,54 @@
       <v-container class="mx-auto py-0 ">
         <v-row align="center">
           <v-toolbar-title>JABHOLDING</v-toolbar-title>
-          <v-btn
-            text
-            class="ml-10"
-            :to="{name: 'Home'}"
-            exact
+          <div
+            v-if="getAdmin()==false"
           >
-     
-            Inicio
-          </v-btn>
+            <v-btn
+              text
+              class="ml-10"
+              :to="{name: 'Home'}"
+              exact
+            >
+      
+              Inicio
+            </v-btn>
+            
+            <v-btn
+              text
+              class="ml-5"
+              :to="{name: 'Cart'}"
+              exact
+            >
           
-          <v-btn
-            text
-            class="ml-5"
-            :to="{name: 'Cart'}"
-            exact
+              Mi Lista
+            </v-btn>
+            
+          </div>
+          <div
+            v-else
           >
-        
-            Mi Lista
-          </v-btn>
+            <v-btn
+              text
+              class="ml-10"
+              :to="{name: 'Verproductos'}"
+              exact
+            >
+      
+              Productos
+            </v-btn>
+            
+            <v-btn
+              text
+              class="ml-5"
+              :to="{name: 'Verusuarios'}"
+              exact
+            >
+          
+              Usuarios
+            </v-btn>
+            
+          </div>
           <v-spacer />
 
           <v-text-field
@@ -40,10 +69,19 @@
             class="ml-5"
             :to="{name: 'Login'}"
             exact
-            :v-if="user==null"
+            v-if="user==null"
           >
             <v-icon>mdi-account-circle-outline</v-icon>
-            
+          </v-btn>
+          <v-btn
+            text
+            class="ml-5"
+            :to="{name: 'Infocuenta'}"
+            exact
+            v-else
+          >
+            <v-icon>mdi-account-circle</v-icon>
+            ¡HOLA!
           </v-btn>
         </v-row>
       </v-container>
@@ -96,21 +134,29 @@
       </v-list>
     </v-navigation-drawer>
     <v-main class="white">
-      <router-view/>
+      <div>
+        <router-view/>
+      </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState, mapGetters } from "vuex"
 export default {
   name: 'App',
 
   data: () => ({
     drawer: false,
+    administrador: null,
   }),
   computed:{
-    ...mapState(['categorias', 'user', 'pass'])
+    ...mapState(['categorias', 'user', 'pass', 'admin']),
+    ...mapGetters(['getAdmin'])
+  },
+  updated() {
+    console.log(this.admin)
+    this.administrador=this.admin
   },
 };
 </script>

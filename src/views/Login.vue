@@ -35,16 +35,45 @@
               <v-btn 
               color="grey darken-4 white--text"
               v-else
+              @click="login()"
               >
                 Login
               </v-btn>
             </v-card-actions>
+            <v-card-text 
+            class="justify-center red--text"
+            align="center"
+            v-if="error==true"
+            >
+              Usuario o Contraseña incorrecto
+            </v-card-text>
           </v-card>
+          <v-dialog
+            v-model="dialog"
+            max-width="290"
+          >
+            <v-card>
+              <v-card-title class="text-h5">
+                {{mensaje}}
+              </v-card-title>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="green darken-1"
+                  text
+                  @click="cerrardialogo()"
+                >
+                  Continuar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-row>
         <v-row class="justify-center pt-6">
           <p class="text-h6">No tienes cuenta? Registrate</p>
           <v-btn
-          class="text-h6 white--text mt-1"
+          class="text-h6 black--text mt-1"
           x-small
           plain
           :to="{name: 'Register'}"
@@ -58,21 +87,26 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import {required, minLength, email} from 'vuelidate/lib/validators'
+import axios from 'axios'
 export default {
     name: "Login",
     data() {
       return {
           showPassword:false,
           userin: '',
-          passin: ''
+          passin: '',
+          tipo:null,
+          error:null,
+          dialog:false,
+          mensaje: ''
       }
 
     },
     computed:{
-      ...mapState(['user','pass']),
+      ...mapState(['user','pass','admin']),
     },
     methods: {
-      ...mapMutations(['guardar']),
+      ...mapMutations(['setadmin', 'setuser', 'setpass']),
       logear(){
         if(this.$v.$invalid){
           return 'invalid'
@@ -91,6 +125,46 @@ export default {
         if(!this.$v.passin.required){
           return 'Este campo es obligatorio'
         }
+      },
+      login(){
+
+        const path='http://localhost:5000/loginapi'
+        axios.post(path, {
+          correo: this.userin,
+          contrasena: this.passin
+        }).then((respuesta)=>{
+          console.log(respuesta.data.message)
+          this.tipo=respuesta.data.message
+          console.log(this.tipo)
+          if (this.tipo=='sí') {
+            this.setadmin(true)
+            this.setuser(this.userin)
+            this.setpass(this.passin)
+            this.mensaje='Ingreso Exitoso'
+            this.$router.push({path: '/moduloadmin'})
+            
+          }else{
+            if(this.tipo=='no'){
+              this.setadmin(false)
+              this.setuser(this.userin)
+              this.setpass(this.passin)
+              this.mensaje='Ingreso Exitoso'
+              this.$router.push({path: '/'})
+            }else{
+              this.error=true
+              this.userin=''
+              this.passin=''
+            }
+          }
+        }).catch((error)=>{
+          console.log(error)
+        }).then(()=>{
+          
+        })
+        
+      },
+      cerrardialogo(){
+        this.dialog=false
       }
     },
     validations:{
