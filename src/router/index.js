@@ -79,6 +79,10 @@ const routes = [
     path: '/cargaradministradores',
     name: 'Cargaradministradores',
     component: () => import(/* webpackChunkName: "about" */ '../views/Cargaradministradores.vue')
+  },{
+    path: '/cargaradministradores',
+    name: 'Cargaradministradores',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Cargaradministradores.vue')
   }
 ]
 
