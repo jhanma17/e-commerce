@@ -113,3 +113,5 @@ def comentar():
 def editar(comentario):
     comentario_nuevo=request.get()
     Usuario.editar_comentario(comentario,comentario_nuevo)
+if __name__=='__main__':
+    app.run(debug=False) 
