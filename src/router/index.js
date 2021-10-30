@@ -39,6 +39,51 @@ const routes = [
     path: '/moduloadmin',
     name: 'Moduloadmin',
     component: () => import(/* webpackChunkName: "about" */ '../components/Moduloadmin.vue')
+  },{
+    path: '/modulosuperadmin',
+    name: 'Modulosuperadmin',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Modulosuperadmin.vue')
+  },{
+    path: '/cargarproducto',
+    name: 'Cargarproducto',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Cargarproducto.vue')
+  },{
+    path: '/verusuarios',
+    name: 'Verusuarios',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Verusuarios.vue')
+  },{
+    path: '/verproductos',
+    name: 'Verproductos',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Verproductos.vue')
+  },{
+    path: '/editarproductos',
+    name: 'Editarproductos',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Editarproductos.vue')
+  },{
+    path: '/veradministradores',
+    name: 'Veradministradores',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Veradministradores.vue')
+    
+  },{
+    path: '/editarusuarios',
+    name: 'Editarusuarios',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Editarusuarios.vue')
+  },{
+    path: '/editaradministradores',
+    name: 'Editaradministradores',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Editaradministradores.vue')
+  },{
+    path: '/gestionarcomentarios',
+    name: 'Gestionarcomentarios',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Gestionarcomentarios.vue')
+  },{
+    path: '/cargaradministradores',
+    name: 'Cargaradministradores',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Cargaradministradores.vue')
+  },{
+    path: '/cargaradministradores',
+    name: 'Cargaradministradores',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Cargaradministradores.vue')
   },
   {
     path: '/infocuenta',
