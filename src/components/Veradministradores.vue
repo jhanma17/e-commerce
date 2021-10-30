@@ -1,20 +1,14 @@
 <template>
+      <v-col
+        cols="12"
+        sm="4"
+        
+      >
   <v-card
-    class="mx-auto"
+  class="mx-auto"
     max-width="500"
   >
-  <v-toolbar
-      dense
     
-    >
-      <v-text-field
-        hide-details
-        prepend-icon="mdi-magnify"
-        single-line
-      ></v-text-field>
-
-    </v-toolbar>
-
     <v-list two-line>
       <v-list-item-group
         v-model="selected"
@@ -37,8 +31,16 @@
 
               <v-list-item-action>
                 <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
-
+                <v-btn
+      class="mx-2"
+      fab
+      dark
+      color="primary"
+     :to="{name: 'Editaradministradores'}"
+    >
                 <v-icon
+                  @click="pencilAdmins(item.title,item.subtitle,item.action)"
+                  
                   v-if="!active"
                   color="grey lighten-1"
                 >
@@ -51,6 +53,7 @@
                 >
                  mdi-pencil
                 </v-icon>
+                </v-btn>
               </v-list-item-action>
             </template>
           </v-list-item>
@@ -70,6 +73,7 @@
       fab
       dark
       color="primary"
+      :to="{name: 'Cargaradministradores'}"
     >
       <v-icon dark>
         mdi-plus
@@ -90,6 +94,7 @@
 
   </div>
   </v-card>
+  </v-col>
 </template>
 
 <script>
@@ -129,5 +134,10 @@
         },
       ],
     }),
+    methods:{
+        pencilAdmins(title, subtitle, headline) {
+
+        }
+    }
   }
 </script>

@@ -1,7 +1,10 @@
 <template>
     <v-main>
         <v-container>
-            <v-row>
+            <v-row
+            justify="center"
+            align="center"
+            >
                 <v-card width="400">
                     <v-img
                     height="200px"
@@ -19,6 +22,11 @@
                         {{user}}
                         </p>
                     </v-card-title>
+                    <v-btn
+                    @click="cerrar()"
+                    >
+                        Cerrar sesion
+                    </v-btn>
                     </v-img>
                 </v-card>
             </v-row>
@@ -35,10 +43,19 @@ export default {
         }
     },
     computed:{
-        ...mapState(['user'])
+        ...mapState(['user', 'pass', 'admin'])
     },
     methods: {
-        
+        ...mapMutations(['setadmin', 'setuser', 'setpass']),
+        cerrar(){
+            localStorage.removeItem('admin')
+            localStorage.removeItem('usuario')
+            localStorage.removeItem('clave')
+            this.setadmin(false)
+            this.setuser(null)
+            this.setpass(null)
+            this.$router.push({path: '/login'})
+        }
     },
 }
 </script>

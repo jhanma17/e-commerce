@@ -1,4 +1,4 @@
-><template>
+<template>
     <v-row justify="center">
     <v-col
       cols="12"
@@ -9,38 +9,26 @@
       <v-card ref="form">
         <v-card-text>
           <v-text-field
-            ref="name"
+            ref="titulo"
             v-model="name"
-            :rules="[() => !!name || 'No llenaste la casilla']"
-            :error-messages="errorMessages"
-            label="Nombre"
-            required
-          ></v-text-field>
-          <v-text-field
-            ref="useremail"
-            v-model="email"
-            :rules="[
-              () => !!address || 'No llenaste la casilla',
-              
-              emailCheck
-            ]"
-            label="Correo electrónico"
-            placeholder="Inserta un formato de correo válido"
             
+           
+            label="Título"
             required
           ></v-text-field>
-                    <v-text-field
-            ref="userpassword"
-            v-model="password"
-            :rules="[() => !!password || 'No llenaste la casilla']"
-            :error-messages="errorMessages"
-            label="Contraseña"
-            required
-          ></v-text-field>
+        <v-textarea
+          solo
+          name="input-7-4"
+          
+        ></v-textarea>
+
         </v-card-text>
         <v-divider class="mt-12"></v-divider>
         <v-card-actions>
-          <v-btn text>
+          <v-btn 
+          text
+          :to="{name: 'Vercomentarios'}"
+          >
             Cancelar
           </v-btn>
           <v-spacer></v-spacer>
@@ -77,6 +65,7 @@
 </template>
 
 <script>
-
+  name:"editarcomentarios"
 
 </script>
+

@@ -2,7 +2,7 @@ from flask_login import UserMixin,LoginManager
 from werkzeug.security import generate_password_hash,check_password_hash
 import sqlite3
 import datetime
-
+from catalogo import Catalogo
 
 login=LoginManager()
 class Usuario(UserMixin):
@@ -80,6 +80,32 @@ class Usuario(UserMixin):
         if resultado is not None: 
             return resultado
         return None
+    def comentar(self,comentario,id_user,nombre_producto):
+        con=Usuario.get_bd()
+        cursor=con.cursor()
+        comentar='INSERT INTO comentarios(comentario,Usuario_id,Producto_id) VALUES (?,?,?) '
+        cursor.execute(comentar,[comentario,id_user,nombre_producto])
+        con.commit()
+    
+    def borrar_comentario(self,comentario):
+        con=Usuario.get_bd()
+        cursor=con.cursor()
+        comentar='SELECT id FROM comentarios WHERE comentario=? '
+        cursor.execute(comentar,[comentar,comentario])
+        id_comentario=cursor.fetchone()
+        eliminar='DELETE FROM comentarios WHERE id=?'
+        cursor.execute(eliminar,[id_comentario])
+        con.commit()
+    
+    def editar_comentario(self,comentario_ant,coment_nuevo):
+        con=Usuario.get_bd()
+        cursor=con.cursor()
+        comentar='SELECT id FROM comentarios WHERE comentario=? '
+        cursor.execute(comentar,[comentar,comentario_ant])
+        id_comentario=cursor.fetchone()
+        editar='UPDATE comentarios SET comentario=? WHERE id=?'
+        cursor.execute(editar,[coment_nuevo,id_comentario])
+        con.commit()
 
 @login.user_loader
 def load_user(correo):

@@ -21,7 +21,7 @@ def render_vue(path):
 login.init_app(app)
 login.login_view='/'
     
-@app.route('/loginapi',methods=['GET','POST'])
+@app.route('/loginapi',methods=['GET','POST']) #listo
 def login():
     response_object = {'status': 'success'}
     if request.method == 'POST':
@@ -42,7 +42,7 @@ def login():
         else:
             response_object['message']='no existe'
         return jsonify(response_object)
-@app.route('/registerapi', methods=['GET','POST'])
+@app.route('/registerapi', methods=['GET','POST']) #listo
 def register():
     response_object = {'status': 'success'}
     if request.method == 'POST' :
@@ -57,43 +57,61 @@ def register():
             response_object['message']='Registrado correctamente'
         return jsonify(response_object)
 
-@app.route('/catalogo',methods=['GET'])
+@app.route('/catalogo',methods=['GET']) #listo
 def get_catalogo():
-    print("cata")
     cata=Catalogo().get_catalogo()
+    print(cata)
     return jsonify(cata)
 
-@app.route('/catalogo1',methods=['POST'])
-@login_required
+@app.route('/catalogo1',methods=['POST']) #listo
 def insertar_producto():
     detalles=request.get_json()
-    nombre=detalles['nombre']
+    nombre=detalles['title']
     precio=detalles['precio']
     calificacion=detalles['calificacion']
-    resultado=Catalogo().insertar_producto(nombre,precio,calificacion)
+    imagen=detalles['thumbnailUrl']
+    resultado=Catalogo().insertar_producto(nombre,precio,calificacion,imagen)
     return jsonify(resultado)
 
-@app.route('/catalogo1',methods=['PUT'])
-@login_required
+@app.route('/catalogo1',methods=['PUT']) #listo
 def actualizar_producto():
     detalles=request.get_json()
-    ID=detalles['ID']
-    nombre=detalles['nombre']
+    print(detalles)
+    ID=detalles['id']
+    nombre=detalles['title']
     precio=detalles['precio']
     calificacion=detalles['calificacion']
-    resultado=Catalogo().actualizar_producto(ID,nombre,precio,calificacion)
-    return jsonify(resultado)
-@app.route('/catalogo1/<ID>',methods=['DELETE'])
-@login_required
-def borrar_producto(ID):
-    resultado=Catalogo().borrar_producto(ID)
+    imagen=detalles['thumbnailUrl']
+    resultado=Catalogo().actualizar_producto(ID,nombre,precio,calificacion,imagen)
     return jsonify(resultado)
 
-@app.route('/catalogo1/<ID>',methods=['GET'])
-@login_required
+@app.route('/catalogo1/<ID>',methods=['GET', 'DELETE']) #listo
 def get_por_id(ID):
-    resultado=Catalogo().get_por_id(ID)
-    return jsonify(resultado)
-
+    print("entra")
+    if request.method == 'GET':
+        resultado=Catalogo().get_por_id(ID)
+        print(resultado)
+        return jsonify(resultado)
+    if request.method == 'DELETE':
+        resultado=Catalogo().borrar_producto(ID)
+        print(resultado)
+        return jsonify(resultado)
+@app.route('/comentar',methods=['GET','POST','DELETE'])
+def comentar():
+    data=request.get_json()
+    if request.method=='POST':
+        comentario=data.get('comentario')
+        nombre_producto=data.get('id_producto')
+        guser=current_user.get_id()
+        Usuario.comentar(comentario,guser,nombre_producto)
+    elif request.method=='DELETE':
+        comentario=request.get('comentario')
+        Usuario.borrar_comentario(comentario)
+    elif request.method=='GET':
+        comentario=request.get('comentario')
+@app.route('/comentar/<comentario>',methods=['GET','POST'])
+def editar(comentario):
+    comentario_nuevo=request.get()
+    Usuario.editar_comentario(comentario,comentario_nuevo)
 if __name__=='__main__':
     app.run(debug=True) 

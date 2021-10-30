@@ -6,7 +6,7 @@
 
 <script>
   import HelloWorld from '../components/HelloWorld'
-
+  import { mapMutations, mapState } from 'vuex';
   export default {
     name: 'Home',
 
@@ -22,6 +22,9 @@
           {nombre:"Carlos", img:"https://cdn.vuetifyjs.com/images/cards/sunshine.jpg", precio:"20000"}
         ]
       }
+    },
+    computed: {
+      ...mapState(['admin']),
     },
   }
 </script>

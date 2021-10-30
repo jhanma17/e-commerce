@@ -1,22 +1,15 @@
 <template>
+      <v-col
+        cols="12"
+        sm="4"
+        
+      >
   <v-card
-    class="mx-auto"
+  class="mx-auto"
     max-width="500"
   >
-  <v-toolbar
-      dense
     
-    >
-      <v-text-field
-        hide-details
-        prepend-icon="mdi-magnify"
-        single-line
-      ></v-text-field>
-
-    </v-toolbar>
-
-
-    <v-list>
+    <v-list two-line>
       <v-list-item-group
         v-model="selected"
         active-class="pink--text"
@@ -38,8 +31,16 @@
 
               <v-list-item-action>
                 <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
-
+                <v-btn
+       x-small
+      fab
+      dark
+      color="primary"
+     :to="{name: 'Editarcomentarios'}"
+    >
                 <v-icon
+                  @click="pencilAdmins(item.title,item.subtitle,item.action)"
+                  
                   v-if="!active"
                   color="grey lighten-1"
                 >
@@ -52,6 +53,7 @@
                 >
                  mdi-pencil
                 </v-icon>
+                </v-btn>
               </v-list-item-action>
             </template>
           </v-list-item>
@@ -66,19 +68,11 @@
       <div class="text-center">
 
 
-    <v-btn
-      class="mx-2"
-      fab
-      dark
-      color="primary"
-    >
-      <v-icon dark>
-        mdi-plus
-      </v-icon>
-    </v-btn>
+
 
     <v-btn
       class="mx-2"
+      x-small
       fab
       dark
       color="primary"
@@ -91,6 +85,7 @@
 
   </div>
   </v-card>
+  </v-col>
 </template>
 
 <script>
@@ -99,24 +94,17 @@
       selected: [2],
       items: [
         {
-          title: 'Agua',
-        },
-        {
-          title: 'Pizza',
-        },
-        {
-
-          title: 'Sandía',
-        },
-        {
-          
-         title: 'Café',
-        },
-        {
-          
-          title: 'Arroz',
-        },
+         
+          headline: '10-12-2021',
+          subtitle: `Muy buen producto. Excelente calidad y buen tiempo de entrega.`,
+          title: 'Muy buen producto',
+        }
       ],
     }),
+    methods:{
+        pencilAdmins(title, subtitle, headline) {
+
+        }
+    }
   }
 </script>

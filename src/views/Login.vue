@@ -140,6 +140,9 @@ export default {
             this.setadmin(true)
             this.setuser(this.userin)
             this.setpass(this.passin)
+            localStorage.admin=true
+            localStorage.usuario=this.userin
+            localStorage.clave=this.passin
             this.mensaje='Ingreso Exitoso'
             this.$router.push({path: '/moduloadmin'})
             
@@ -148,6 +151,9 @@ export default {
               this.setadmin(false)
               this.setuser(this.userin)
               this.setpass(this.passin)
+              localStorage.admin=false
+              localStorage.usuario=this.userin
+              localStorage.clave=this.passin
               this.mensaje='Ingreso Exitoso'
               this.$router.push({path: '/'})
             }else{

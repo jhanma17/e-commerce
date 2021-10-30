@@ -1,4 +1,4 @@
-><template>
+<template>
     <v-row justify="center">
     <v-col
       cols="12"
@@ -17,67 +17,33 @@
             required
           ></v-text-field>
           <v-text-field
-            ref="price"
-            v-model="address"
+            ref="useremail"
+            v-model="email"
             :rules="[
               () => !!address || 'No llenaste la casilla',
-              () => !!address && address.length <= 25 || 'Address must be less than 25 characters',
-              addressCheck
+              
+              emailCheck
             ]"
-            label="Precio"
-            placeholder="Snowy Rock Pl"
+            label="Correo electrónico"
+            placeholder="Inserta un formato de correo válido"
             
             required
           ></v-text-field>
-                <v-textarea
-        v-model="bio"
-        auto-grow
-        filled
-        color="primary"
-        label="Descripción"
-        rows="1"
-                    :rules="[
-              () => !!address || 'No llenaste la casilla',
-           
-              addressCheck
-            ]"
-        
-      ></v-textarea>
-
-  <v-file-input
-      :rules="rules"
-    accept="image/png, image/jpeg, image/bmp"
-    label="Reemplazar foto"
-    filled
-    prepend-icon="mdi-camera"
-  ></v-file-input>
-    <v-file-input
-        :rules="rules"
-    accept="image/png, image/jpeg, image/bmp"
-    label="Reemplazar foto"
-    filled
-    prepend-icon="mdi-camera"
-  ></v-file-input>
-      <v-file-input
-          :rules="rules"
-    accept="image/png, image/jpeg, image/bmp"
-    label="Reemplazar foto"
-    filled
-    prepend-icon="mdi-camera"
-  ></v-file-input>
-
-
-
-    
-
-    
-                  
-
-
+                    <v-text-field
+            ref="userpassword"
+            v-model="password"
+            :rules="[() => !!password || 'No llenaste la casilla']"
+            :error-messages="errorMessages"
+            label="Contraseña"
+            required
+          ></v-text-field>
         </v-card-text>
         <v-divider class="mt-12"></v-divider>
         <v-card-actions>
-          <v-btn text>
+          <v-btn 
+          text
+          :to="{name: 'Veradministradores'}"
+          >
             Cancelar
           </v-btn>
           <v-spacer></v-spacer>
@@ -114,6 +80,7 @@
 </template>
 
 <script>
-
-
+export default {
+  name:"cargaradministradores"
+}
 </script>

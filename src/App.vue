@@ -37,7 +37,7 @@
             <v-btn
               text
               class="ml-10"
-              :to="{name: 'Verproductos'}"
+              :to="{name: 'Adminproductos'}"
               exact
             >
       
@@ -69,7 +69,7 @@
             class="ml-5"
             :to="{name: 'Login'}"
             exact
-            v-if="user==null"
+            v-if="getuser()==null"
           >
             <v-icon>mdi-account-circle-outline</v-icon>
           </v-btn>
@@ -142,7 +142,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex"
+import { mapState, mapGetters, mapMutations } from "vuex"
 export default {
   name: 'App',
 
@@ -152,11 +152,25 @@ export default {
   }),
   computed:{
     ...mapState(['categorias', 'user', 'pass', 'admin']),
-    ...mapGetters(['getAdmin'])
+    ...mapGetters(['getAdmin', 'getuser'])
+  },
+  methods: {
+    ...mapMutations(['setadmin', 'setuser', 'setpass'])
   },
   updated() {
-    console.log(this.admin)
+    if(localStorage.usuario!=null){
+      this.setadmin(localStorage.admin)
+      this.setuser(localStorage.usuario)
+      this.setpass(localStorage.clave)
+    }
     this.administrador=this.admin
   },
+  created(){
+    if(localStorage.usuario!=null){
+      this.setadmin(localStorage.admin)
+      this.setuser(localStorage.usuario)
+      this.setpass(localStorage.clave)
+    }
+  }
 };
 </script>

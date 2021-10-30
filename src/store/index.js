@@ -57,68 +57,55 @@ export default new Vuex.Store({
     ],
     user:null,
     pass:null,
-    admin:'0',
+    admin:false,
     carrito: {}
   },
   mutations: {
-    setProductos(payload) {
-      this.state.comprainfo = payload
-      console.log(this.state.comprainfo)
+    setProductos(state, payload) {
+      state.productos = payload
     },
     setCarrito(state, payload) {
-      state.carrito[payload.id] = { ...payload }
+      state.carrito[payload.id] = Vue.observable({ ...payload })
       console.log(state.carrito)
     },
     setVaciar(state) {
       state.carrito = {}
     },
-    aumentar2(state, payload) {
+    aumentar(state, payload) {
       state.carrito[payload].cantidad = state.carrito[payload].cantidad + 1
-      console.log(state.carrito)
     },
-    disminuir2(state, payload) {
+    disminuir(state, payload) {
       state.carrito[payload].cantidad = state.carrito[payload].cantidad - 1
       if (state.carrito[payload].cantidad === 0) {
         delete state.carrito[payload]
       }
-      console.log(state.carrito)
     },
     setadmin(state, ad){
       console.log(ad)
-      state.admin=ad
-      console.log(this.admin)
+      state.admin=Vue.observable(ad)
     },
     setuser(state, ad){
-      state.user=ad
-      console.log(this.user)
+      state.user=Vue.observable(ad)
     },
     setpass(state, ad){
-      state.pass=ad
-      console.log(this.pass)
+      state.pass=Vue.observable(ad)
     },
   },
   actions: {
     agregarCarrito({ commit, state }, producto) {
       state.carrito.hasOwnProperty(producto.id)
-        ? producto.cantidad = state.carrito[producto.id-1].cantidad + 1
+        ? producto.cantidad = state.carrito[producto.id].cantidad + 1
         : producto.cantidad = 1
       commit('setCarrito', producto)
-    }, 
-    aumentar({commit}, payload){
-      commit('aumentar2', payload)
-    },
-    disminuir({commit}, payload){
-      commit('disminuir2', payload)
     }
   },
   modules: {
   },
   getters: {
-    totalCantidad:(state) => (id) => {
-      console.log("estoy corriendo")
-      return state.carrito[id].cantidad
+    totalCantidad(state) {
+      return Object.values(state.carrito).reduce((acc, {cantidad}) => acc + cantidad, 0)
     },
-    totalPrecio: (state) => () =>{
+    totalPrecio(state) {
       return Object.values(state.carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio, 0)
     },
     getActual:(state) => (id) => {
@@ -126,6 +113,13 @@ export default new Vuex.Store({
     },
     getAdmin:(state) => () => {
       return state.admin
-    }
+    },
+    getcarrito:(state)=> () => {
+      return state.carrito
+    },
+    getuser:(state)=> () => {
+      console.log(state.user)
+      return state.user
+    },
   }
 })

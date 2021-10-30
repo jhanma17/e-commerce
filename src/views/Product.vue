@@ -8,6 +8,7 @@
                 class="pa-2"
                 outlined
                 tile
+                v-if="productoactual!=null"
                 >
                     <v-row
                     >
@@ -35,16 +36,13 @@
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit reiciendis amet quidem et, provident accusamus, maxime mollitia nobis repudiandae vel, ullam accusantium porro laboriosam omnis molestias laudantium veritatis. Architecto, dolore.
                             </v-card-text>
                             <v-rating
-                            :value="4.5"
+                            :value="productoactual[3]"
                             color="amber"
                             dense
                             half-increments
                             readonly
                             size="14"
                             ></v-rating>
-                            <div class="grey--text ms-4">
-                            4.5 (413)
-                            </div>
                             <v-divider class="mx-2"></v-divider>
                             <v-card-subtitle
                             class="headline font-weight-bold"
@@ -53,7 +51,7 @@
                             <v-btn
                             block
                             color="light-green lighten-3"
-                            @click="agregarCarrito(productoactual[4])"
+                            @click="agregarCarrito(adic(productoactual))"
                             >
                                 Agregar a la lista
                             </v-btn>
@@ -77,6 +75,7 @@
           label="Realiza un comentario"
           rows="1"
           prepend-icon="mdi-comment"
+          v-model="comentario"
         ></v-textarea>
             <v-btn
             block
@@ -98,7 +97,8 @@ export default {
     name:"product",
     data() {
         return {
-            productoactual: null
+            productoactual: ['0', '', 0, 0, ''],
+            comentario:'',
         }
     },
     computed:{
@@ -108,21 +108,46 @@ export default {
     methods: {
         ...mapActions(['agregarCarrito']),
         traerproducto(id){
-        const path='http://localhost:5000/catalogo1/'
-        axios.get(path,{
-            ID: id
-        })
-        .then((respuesta)=>{
-          console.log(respuesta.data)
-          this.productoactual=respuesta.data
-        }).catch((error)=>{
-          console.log(error)
-        }).then(()=>{
-        })
-      }
+            const path='http://localhost:5000/catalogo1/'
+            axios.get(path+id) 
+            .then((respuesta)=>{
+                this.productoactual=respuesta.data
+            }).catch((error)=>{
+                console.log(error)
+            }).then(()=>{
+            })
+        },
+        adic(producto){
+            var lista={
+                id: producto[0],
+                title: producto[1],
+                precio: producto[2],
+                calificacion: producto[3],
+                thumbnailUrl: producto[4]
+            }
+            return lista
+        },
+        comentar(p_id){
+            const path='http://localhost:5000/comentar'
+            var aux={
+                comentario: this.comentario,
+                id_producto: p_id
+            }
+            axios.post(path, aux)
+            .then((respuesta)=>{
+                this.$router.go(0)
+            }).catch((error)=>{
+                console.log(error)
+            })
+        }
     },
     created() {
         this.traerproducto(this.$route.params.id)
+        if(localStorage.getItem('usuario')){
+            this.setadmin(JSON.parse(localStorage.getItem('admin')))
+            this.setuser(JSON.parse(localStorage.getItem('usuario')))
+            this.setpass(JSON.parse(localStorage.getItem('clave')))
+        }
     },
 }
 </script>

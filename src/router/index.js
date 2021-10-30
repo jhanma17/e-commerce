@@ -34,56 +34,31 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
-  },{
+  },
+  {
     path: '/moduloadmin',
     name: 'Moduloadmin',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Moduloadmin.vue')
-  },{
-    path: '/modulosuperadmin',
-    name: 'Modulosuperadmin',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Modulosuperadmin.vue')
-  },{
-    path: '/cargarproducto',
-    name: 'Cargarproducto',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Cargarproducto.vue')
-  },{
-    path: '/verusuarios',
-    name: 'Verusuarios',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Verusuarios.vue')
-  },{
-    path: '/verproductos',
-    name: 'Verproductos',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Verproductos.vue')
-  },{
-    path: '/editarproductos',
-    name: 'Editarproductos',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Editarproductos.vue')
-  },{
-    path: '/veradministradores',
-    name: 'Veradministradores',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Veradministradores.vue')
-    
-  },{
-    path: '/editarusuarios',
-    name: 'Editarusuarios',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Editarusuarios.vue')
-  },{
-    path: '/editaradministradores',
-    name: 'Editaradministradores',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Editaradministradores.vue')
-  },{
-    path: '/gestionarcomentarios',
-    name: 'Gestionarcomentarios',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Gestionarcomentarios.vue')
-  },{
-    path: '/cargaradministradores',
-    name: 'Cargaradministradores',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Cargaradministradores.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/Moduloadmin.vue')
   },
   {
     path: '/infocuenta',
     name: 'Infocuenta',
     component: () => import(/* webpackChunkName: "about" */ '../views/Infocuenta.vue')
+  },
+  {
+    path: '/adminproductos',
+    name: 'Adminproductos',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Adminproductos.vue')
+  },
+  {
+    path: '/editarpro/:id',
+    name: 'Editarpro',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Editarpro.vue')
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    component: () => import(/* webpackChunkName: "about" */ '../components/Verusuarios.vue')
   }
 ]
 

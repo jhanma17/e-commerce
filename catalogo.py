@@ -23,19 +23,19 @@ class Catalogo():
             cursor.execute(tabla)
         return tablas
     
-    def insertar_producto(self,nombre,precio,calificacion):
+    def insertar_producto(self,nombre,precio,calificacion,imagen):
         bd=self.get_bd()
         cursor=bd.cursor()
-        sentencia='INSERT INTO catalogo(nombre,precio,calificacion)VALUES (?,?,?)'
-        cursor.execute(sentencia,[nombre,precio,calificacion])
+        sentencia='INSERT INTO catalogo(nombre,precio,calificacion,imagen)VALUES (?,?,?,?)'
+        cursor.execute(sentencia,[nombre,precio,calificacion,imagen])
         bd.commit()
         return True
     
-    def actualizar_producto(self,ID,nombre,precio,calificacion):
+    def actualizar_producto(self,ID,nombre,precio,calificacion,imagen):
         bd=self.get_bd()
         cursor=bd.cursor()
-        sentencia='UPDATE catalogo SET nombre=?,precio = ?,calificacion =? WHERE ID = ?'
-        cursor.execute(sentencia,[nombre,precio,calificacion,ID])
+        sentencia='UPDATE catalogo SET nombre=?,precio = ?,calificacion =?, imagen =? WHERE ID = ?'
+        cursor.execute(sentencia,[nombre,precio,calificacion,imagen,ID])
         bd.commit()
         return True
     def borrar_producto(self,ID):
@@ -52,7 +52,12 @@ class Catalogo():
         sentencia = "SELECT ID, nombre, precio, calificacion, imagen FROM catalogo WHERE ID = ?"
         cursor.execute(sentencia, [ID])
         return cursor.fetchone()
-    
+    def get_by_name(self,nombre):
+        bd = self.get_bd()
+        cursor = bd.cursor()
+        sentencia = "SELECT ID, nombre, precio, calificacion FROM catalogo WHERE nombre = ?"
+        cursor.execute(sentencia, [nombre])
+        return cursor.fetchone()
     def get_catalogo(self):
         bd=self.get_bd()
         cursor=bd.cursor()
